@@ -40,9 +40,11 @@ class QSort
 	private f_cmp
 	private f_swap
 	private valueSort
+	private reset_cmp
 	
 	private sub class_initialize
 		f_order = ORDER_ASC
+		reset_cmp = false
 	end sub
 
 	' Compare a and b, taking the sort-order into account
@@ -117,6 +119,7 @@ class QSort
     private sub DetermineSortType(byref values)
         if IsEmpty(f_cmp) then
             valueSort = true
+            reset_cmp = true
             set f_cmp = GetRef("qsort_cmp")
             set f_swap = GetRef("array_swap")
         elseif IsObject(values(LBound(values))) then   
@@ -142,6 +145,6 @@ class QSort
 		QSort values, LBound(values), UBound(values)
     	Sort = values
 
-		if valueSort then f_cmp = Empty
+		if reset_cmp then f_cmp = Empty
 	end function
 end class
