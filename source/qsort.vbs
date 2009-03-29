@@ -145,8 +145,3 @@ class QSort
 		if valueSort then f_cmp = Empty
 	end function
 end class
-
-public function make_qsort
-    ' Factory function to return a new QSort object; used by JScript-base tests.
-    set make_qsort = new QSort
-end function

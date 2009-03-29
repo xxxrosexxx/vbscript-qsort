@@ -9,6 +9,10 @@
    <script language="VBScript">
 <![CDATA[
 option explicit
+function make_qsort
+    ' Factory function to return a new QSort object; used by JScript-base tests.
+    set make_qsort = new QSort
+end function
 
 function TestArray()
     TestArray = Array(4,1,9,2,7)
