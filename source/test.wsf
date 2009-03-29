@@ -33,11 +33,11 @@ var q = make_qsort();
 var a;
 dump(VBArray(TestArray()))
 
-a  = q.Sort(VBArray(TestArray()))
+a  = q.Sorter(VBArray(TestArray()))
 dump(a)
 
 q.Order = -1
-a  = q.Sort(VBArray(TestArray()))
+a  = q.Sorter(VBArray(TestArray()))
 dump(a)
 
 ]]>

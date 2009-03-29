@@ -101,11 +101,11 @@ class QSort
 			set values(hiSwap) = pivot
 		end if
 	  
-		' Recursively call function
+		' Recurse:
 		' 2 or more items in first section
 		if loBound < (hiSwap - 1) then QSort values, loBound, hiSwap-1
 		' 2 or more items in second section
-		if hiSwap + 1 < hibound then QSort values, hiSwap+1, hiBound
+		if hiSwap+1 < hibound then QSort values, hiSwap+1, hiBound
 	End Sub
 
 	public property set Compare(func)
@@ -133,18 +133,18 @@ class QSort
         end if
     end sub
 
-	public function Sort(byref values)
+	public sub Sort(byref values)
         ' Don't sort empty arrays or arrays with only 1 value
-        if UBound(values) < 1 then 
-            Sort = values
-            exit function
-        end if
+        if UBound(values) < 1 then exit sub
         
         DetermineSortType values
-			
 		QSort values, LBound(values), UBound(values)
-    	Sort = values
 
 		if reset_cmp then f_cmp = Empty
+	end sub
+	
+	public function Sorter(values)
+	    Sort values
+	    Sorter = values
 	end function
 end class
