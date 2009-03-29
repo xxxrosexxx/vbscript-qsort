@@ -4,7 +4,7 @@
     QSort tests.
 </comment>
 
-<job id="QSortDemo">
+<job id="QSortTest">
    <script language="VBScript" src="qsort.vbs" />
    <script language="VBScript">
 <![CDATA[
@@ -18,19 +18,24 @@ end function
    </script>
    <script language="JScript">
 <![CDATA[
-var q = make_qsort();
-var a = VBArray(TestArray());
-for (i = 0; i <= a.ubound(); i++)
-{
-    WScript.Echo(a.getItem(i));
+function dump(arr){
+    for (i = 0; i <= arr.ubound(); i++){
+        WScript.StdOut.Write(arr.getItem(i));
+    }
+    WScript.Stdout.WriteLine();
 }
-WScript.Echo();
 
-a  = q.Sort(a)
-for (i = 0; i <= a.ubound(); i++)
-{
-    WScript.Echo(a.getItem(i));
-}
+var q = make_qsort();
+var a;
+dump(VBArray(TestArray()))
+
+a  = q.Sort(VBArray(TestArray()))
+dump(a)
+
+q.Order = -1
+a  = q.Sort(VBArray(TestArray()))
+dump(a)
+
 ]]>
    </script>
 </job>

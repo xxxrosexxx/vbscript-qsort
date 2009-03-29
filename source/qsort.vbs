@@ -54,7 +54,7 @@ class QSort
 	private sub QSort(byref values, loBound,hiBound)
 		dim pivot,loSwap,hiSwap
 	
-	  '== Two items to sort
+	  ' Two items to sort
 		if hiBound - loBound = 1 then
 			if comp(values(loBound), values(hiBound)) = CMP_GREATER then
 				f_swap values,loBound,hiBound
@@ -62,7 +62,7 @@ class QSort
 			exit sub
 		end If
 	
-	  '== Three or more items to sort
+	  ' Three or more items to sort
 		dim pivotIndex : pivotIndex = int((loBound + hiBound) / 2)
 		
 		if valueSort then
@@ -77,15 +77,15 @@ class QSort
 		hiSwap = hiBound
 	  
 		do
-			'== Find the right loSwap
+			' Find the right loSwap
 			while (loSwap < hiSwap) and (comp(values(loSwap), pivot) <> CMP_GREATER)
 				loSwap = loSwap + 1
 			wend
-			'== Find the right hiSwap
+			' Find the right hiSwap
 			while (comp(values(hiSwap), pivot) = CMP_GREATER)
 				hiSwap = hiSwap - 1
 			wend
-			'== Swap values if loSwap is less then hiSwap
+			' Swap values if loSwap is less then hiSwap
 			if loSwap < hiSwap then
 				f_swap values, loSwap, hiSwap
 			End If
@@ -99,10 +99,10 @@ class QSort
 			set values(hiSwap) = pivot
 		end if
 	  
-		'== Recursively call function
-		'== 2 or more items in first section
+		' Recursively call function
+		' 2 or more items in first section
 		if loBound < (hiSwap - 1) then QSort values, loBound, hiSwap-1
-		'== 2 or more items in second section
+		' 2 or more items in second section
 		if hiSwap + 1 < hibound then QSort values, hiSwap+1, hiBound
 	End Sub
 
@@ -110,27 +110,35 @@ class QSort
 		set f_cmp = func
 	end property
 	
-	public property let Order(sortOrder)
-		f_order = sortOrder
-	end property
-	
+    public property let Order(sortOrder)
+        f_order = sortOrder
+    end property
+
+    private sub DetermineSortType(byref values)
+        if IsEmpty(f_cmp) then
+            valueSort = true
+            set f_cmp = GetRef("qsort_cmp")
+            set f_swap = GetRef("array_swap")
+        elseif IsObject(values(LBound(values))) then   
+            ' User defined object sorting
+            valueSort = false
+            set f_swap = GetRef("array_swap0")
+        else
+            ' User defined value sorting
+            valueSort = true
+            set f_swap = GetRef("array_swap")
+        end if
+    end sub
+
 	public function Sort(byref values)
-		' Don't sort empty arrays or arrays with only 1 value
-		if UBound(values) < 1 then 
-    	    Sort = values
-		    exit function
-		end if
-		
-		valueSort = false
-		
-		if IsEmpty(f_cmp) then
-			valueSort = true
-			set f_cmp = GetRef("qsort_cmp")
-			set f_swap = GetRef("array_swap")
-		else
-			set f_swap = GetRef("array_swapO")
-		end if
-		
+        ' Don't sort empty arrays or arrays with only 1 value
+        if UBound(values) < 1 then 
+            Sort = values
+            exit function
+        end if
+        
+        DetermineSortType values
+			
 		QSort values, LBound(values), UBound(values)
     	Sort = values
 
