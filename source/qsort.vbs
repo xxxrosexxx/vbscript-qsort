@@ -1,4 +1,3 @@
-option explicit
 ' The QSort class sorts arrays using the quicksort algorithm.
 ' This code is a derived work from the code found at:
 '	http://4guysfromrolla.com/webtech/012799-2.shtml
