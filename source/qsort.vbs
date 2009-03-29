@@ -1,3 +1,4 @@
+option explicit
 ' The QSort class sorts arrays using the quicksort algorithm.
 ' This code is a derived work from the code found at:
 '	http://4guysfromrolla.com/webtech/012799-2.shtml
@@ -5,12 +6,12 @@
 ' This version can sort arrays of values or objects, using a user-supplied
 ' comparison function.
 
-const CMP_LESS = -1
-const CMP_EQU = 0
-const CMP_GREATER = 1
+public const CMP_LESS = -1
+public const CMP_EQU = 0
+public const CMP_GREATER = 1
 
-const ORDER_ASC = 1
-const ORDER_DESC = -1
+public const ORDER_ASC = 1
+public const ORDER_DESC = -1
 
 function qsort_cmp(a,b)
 	if a < b then 
@@ -132,7 +133,7 @@ class QSort
 	end sub
 end class
 
-public sub _qsort
+public sub make_qsort
     ' Factory function to return a new QSort object; used by JScript-base tests.
-    set _qsort = QSort
+    set make_qsort = QSort
 end sub

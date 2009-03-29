@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<package>
+<comment>
+    QSort demo.
+</comment>
+
+<job id="QSortDemo">
+   <script language="VBScript" src="qsort.vbs" />
+   <script language="VBScript">
+<![CDATA[
+option explicit
+
+public sub SortValues
+    dim a
+    a = Array(4,1,9,2,7)
+    
+    dim sort
+    set sort = new QSort
+    sort.Sort a
+    
+    dim i
+    for i = 0 to UBound(a)
+       if (i > 0) then WScript.StdOut.Write  ","
+       WScript.StdOut.Write  a(i)
+    next
+    WScript.StdOut.WriteLine 
+end sub
+
+class Thing
+	public a
+end class
+
+function make_thing(value)
+	dim t : set t = new Thing
+	t.a = value
+	set make_thing = t
+end function
+
+function cmp_thing(a, b)
+    ' We could use CMP_* constants if we were including the qsort in an
+    ' ASP page, but WSH includes don't let us reuse constants (for some reason.)
+	if (a.a < b.a) then
+		cmp_thing = -1
+	elseif (a.a > b.a) then
+		cmp_thing = 1
+	else
+		cmp_thing = 0
+	end if
+end function
+
+public sub SortObjects
+    dim a
+    a = Array(make_thing(4),make_thing(1),make_thing(9),make_thing(2),make_thing(7))
+    
+    dim sort
+    set sort = new QSort
+    set sort.Compare = GetRef("cmp_thing")
+    sort.Sort a
+    
+    dim i
+    for i = 0 to UBound(a)
+       if (i > 0) then WScript.StdOut.Write  ","
+       WScript.StdOut.Write  a(i).a
+    next
+    WScript.StdOut.WriteLine
+end sub
+
+call SortValues
+call SortObjects
+]]>
+   </script>
+</job>
+
+</package>
