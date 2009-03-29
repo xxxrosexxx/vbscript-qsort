@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<package>
+<comment>
+    QSort tests.
+</comment>
+
+<job id="QSortDemo">
+   <script language="VBScript" src="qsort.vbs" />
+   <script language="VBScript">
+<![CDATA[
+option explicit
+
+function TestArray()
+    TestArray = Array(4,1,9,2,7)
+end function
+
+]]>
+   </script>
+   <script language="JScript">
+<![CDATA[
+var q = make_qsort();
+var a = VBArray(TestArray());
+for (i = 0; i <= a.ubound(); i++)
+{
+    WScript.Echo(a.getItem(i));
+}
+WScript.Echo();
+
+a  = q.Sort(a)
+for (i = 0; i <= a.ubound(); i++)
+{
+    WScript.Echo(a.getItem(i));
+}
+]]>
+   </script>
+</job>
+
+</package>

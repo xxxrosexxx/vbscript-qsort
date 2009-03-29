@@ -1,0 +1,3 @@
+Bugs:
+* A custom number or string sorts can't be used, as the code assumes
+  that all custom sorts are for objects.

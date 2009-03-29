@@ -51,7 +51,7 @@ class QSort
 		comp = f_cmp(a,b) * f_order
 	end function
 	
-	private sub QSort(values, loBound,hiBound)
+	private sub QSort(byref values, loBound,hiBound)
 		dim pivot,loSwap,hiSwap
 	
 	  '== Two items to sort
@@ -111,12 +111,16 @@ class QSort
 	end property
 	
 	public property let Order(sortOrder)
-		set f_order = sortOrder
+		f_order = sortOrder
 	end property
 	
-	public sub Sort(values)
+	public function Sort(byref values)
 		' Don't sort empty arrays or arrays with only 1 value
-		if UBound(values) < 1 then exit sub
+		if UBound(values) < 1 then 
+    	    Sort = values
+		    exit function
+		end if
+		
 		valueSort = false
 		
 		if IsEmpty(f_cmp) then
@@ -128,12 +132,13 @@ class QSort
 		end if
 		
 		QSort values, LBound(values), UBound(values)
+    	Sort = values
 
 		if valueSort then f_cmp = Empty
-	end sub
+	end function
 end class
 
-public sub make_qsort
+public function make_qsort
     ' Factory function to return a new QSort object; used by JScript-base tests.
-    set make_qsort = QSort
-end sub
+    set make_qsort = new QSort
+end function

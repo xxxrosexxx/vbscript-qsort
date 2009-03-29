@@ -52,14 +52,13 @@ public sub SortObjects
     dim a
     a = Array(make_thing(4),make_thing(1),make_thing(9),make_thing(2),make_thing(7))
     
-    dim sort
-    set sort = new QSort
+    dim sort : set sort = new QSort
     set sort.Compare = GetRef("cmp_thing")
     sort.Sort a
     
     dim i
     for i = 0 to UBound(a)
-       if (i > 0) then WScript.StdOut.Write  ","
+       if (i > 0) then WScript.StdOut.Write ","
        WScript.StdOut.Write  a(i).a
     next
     WScript.StdOut.WriteLine
