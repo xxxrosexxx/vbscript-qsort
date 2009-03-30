@@ -102,7 +102,7 @@ class QSort
 	  
 		' Recurse:
 		' 2 or more items in first section
-		if loBound < (hiSwap - 1) then QSort values, loBound, hiSwap-1
+		if loBound < hiSwap-1 then QSort values, loBound, hiSwap-1
 		' 2 or more items in second section
 		if hiSwap+1 < hibound then QSort values, hiSwap+1, hiBound
 	End Sub
