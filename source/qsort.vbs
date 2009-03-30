@@ -115,7 +115,7 @@ class QSort
         f_order = sortOrder
     end property
 
-    private sub DetermineSortType(byref values)
+    private sub DetermineComparisonType(byref values)
         if IsEmpty(f_cmp) then
             valueSort = true
             reset_cmp = true
@@ -136,7 +136,7 @@ class QSort
         ' Don't sort empty arrays or arrays with only 1 value
         if UBound(values) < 1 then exit sub
         
-        DetermineSortType values
+        DetermineComparisonType values
 		QSort values, LBound(values), UBound(values)
 
 		if reset_cmp then f_cmp = Empty
